@@ -11,19 +11,28 @@ public class Game : MonoBehaviour
     public Transform tetrominosSpawnPosition; // Point d'apparition d'un tetromino
 
     // Limites de la zone de jeu
-    private float boardLimitLeft;
-    private float boardLimitRight;
-    private float boardLimitBottom;
+    private float _boardLimitLeft;
+    private float _boardLimitRight;
+    private float _boardLimitBottom;
+    private float _boardLimitTop;
 
     public static float fallTimeInterval = 0.7f; // Intervalle de temps avant la descente d'une case d'un tetromino
 
+    private int _score = 0;
+
+    // Règles pour l'attribution des points en formant une ou plusieurs lignes d'un coup
+    private const int ScoreSimpleLine = 40;
+    private const int ScoreDoubleLine = 100;
+    private const int ScoreTripleLine = 300;
+    private const int ScoreTetris = 1200;
 
     void Awake()
     {
         // Calcul des limites de la zone de jeu
-        boardLimitLeft = transform.position.x - transform.localScale.x * 0.5f;
-        boardLimitRight = transform.position.x + transform.localScale.x * 0.5f;
-        boardLimitBottom = transform.position.y - transform.localScale.y * 0.5f;
+        _boardLimitLeft = transform.position.x - transform.localScale.x * 0.5f;
+        _boardLimitRight = transform.position.x + transform.localScale.x * 0.5f;
+        _boardLimitBottom = transform.position.y - transform.localScale.y * 0.5f;
+        _boardLimitTop = transform.position.y + transform.localScale.y * 0.5f;
 
         // Initialisation de la grille de jeu
         board = new Transform[(int)transform.localScale.x, (int)transform.localScale.y];
@@ -51,8 +60,117 @@ public class Game : MonoBehaviour
         GameObject Tetromino = Instantiate(availableTetrominos[indexTetrominoToSpawn], tetrominosSpawnPosition.position, Quaternion.identity);
 
         // Passage des limites de la zone de jeu dans la classe gérant le tetromino
-        Tetromino.GetComponent<Tetromino>().boardLimitLeft = boardLimitLeft;
-        Tetromino.GetComponent<Tetromino>().boardLimitRight = boardLimitRight;
-        Tetromino.GetComponent<Tetromino>().boardLimitBottom = boardLimitBottom;
+        Tetromino.GetComponent<Tetromino>().boardLimitLeft = _boardLimitLeft;
+        Tetromino.GetComponent<Tetromino>().boardLimitRight = _boardLimitRight;
+        Tetromino.GetComponent<Tetromino>().boardLimitBottom = _boardLimitBottom;
+    }
+
+    public void endOfTetrominoFall(GameObject tetrominoShape)
+    {
+        // Test si le jeu est terminé
+        if(IsGameOver(tetrominoShape)) {
+            Debug.Log("Fin du jeu");
+            return;
+        }
+
+        // Sauvegarde des parties du tétromino dans la grille de jeu
+        int childQuantity = tetrominoShape.transform.childCount;
+        int i = 0;
+        while (i < childQuantity) {
+            board[(int)tetrominoShape.transform.GetChild(i).transform.position.x, (int)tetrominoShape.transform.GetChild(i).transform.position.y] = tetrominoShape.transform.GetChild(i).transform;
+            i++;
+        }
+
+        // Gestion des lignes réalisées
+        EvaluateBoardForLinesDestruction();
+
+        // Apparition du prochain tétromino
+        SpawnTetromino();
+    }
+
+    private bool IsGameOver(GameObject tetrominoShape)
+    {
+        int childQuantity = tetrominoShape.transform.childCount;
+        int i = 0;
+        
+         // Test si toutes les parties du tétromino sont dans la zone de jeu en hauteur
+        while(i < childQuantity && tetrominoShape.transform.GetChild(i).transform.position.y < _boardLimitTop) {
+            i++;
+        }
+
+        return (i != childQuantity);
+    }
+
+    private void EvaluateBoardForLinesDestruction()
+    {
+        // Recherche des lignes réalisées / Destruction / Mise à jour du board
+        int lineDestroyedQuantity = 0;
+        int y = 0;
+        while (y < board.GetLength(1)) {
+            int x = 0;
+            while (x < board.GetLength(0) && board[x, y] != null) {
+                x++;
+            }
+
+            if (x == board.GetLength(0)) {
+                lineDestroyedQuantity++;
+                DestroyLine(y);
+                UpdateBoardAfterDestroyingLine(y); // Descente d'une case les lignes du dessus
+            } else {
+                y++;
+            }
+        }
+
+        // Mise à jour du score
+        UpdateScore(lineDestroyedQuantity);
+    }
+
+    private void DestroyLine(int indexLine)
+    {   
+        for (int x = 0; x < board.GetLength(0); x++) {
+            if(board[x, indexLine] != null) {
+                // Destruction des parties de tétromino positionnés sur la ligne à détruire
+                Destroy(board[x, indexLine].gameObject);
+                board[x, indexLine] = null;
+            }  
+        }
+    }
+
+    private void UpdateBoardAfterDestroyingLine(int indexLine)
+    {
+        if(indexLine + 1 == board.GetLength(1)) {
+            return;
+        }
+
+        // Parcourt de toutes les lignes au-dessus de celle détruite pour les faire descendre d'une case
+        for (int y = indexLine + 1; y < board.GetLength(1); y++) {
+            for (int x = 0; x < board.GetLength(0); x++) {
+                if (board[x, y] != null) {
+                    board[x, y - 1] = board[x, y];
+                    board[x, y - 1].transform.position += new Vector3(0, -1, 0);
+                    board[x, y] = null;
+                }
+            }
+        }
+    }
+
+    private void UpdateScore(int lineDestroyedQuantity)
+    {
+        switch (lineDestroyedQuantity) {
+            case 1:
+                _score += ScoreSimpleLine;
+                break;
+            case 2:
+                _score += ScoreDoubleLine;
+                break;
+            case 3:
+                _score += ScoreTripleLine;
+                break;
+            case 4:
+                _score += ScoreTetris;
+                break;
+            default:
+            break;
+        }
     }
 }

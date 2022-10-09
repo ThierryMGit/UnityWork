@@ -13,21 +13,24 @@ public class Tetromino : MonoBehaviour
     public GameObject Shape; // GameObject contenant les parties (une partie est un carré) d'un tétromino
     public Transform Pivot; // Centre de rotation du tétromino
 
-    private float fallTimer = 0; // Décompte permettant de gérer la descente du tétromino
+    private float _fallTimer = 0; // Décompte permettant de gérer la descente du tétromino
 
-    private float coeffSpeedFall = 10; // Coefficient d'accélération donné à la descente d'un tétromino lorsque le joueur appuie sur la touche du bas
+    private float _coeffSpeedFall = 10; // Coefficient d'accélération donné à la descente d'un tétromino lorsque le joueur appuie sur la touche du bas
 
-    private bool tetrominoFalling = true; // Condition pour gérer l'intéraction et la chute du tétromino
+    private bool _tetrominoFalling = true; // Condition pour gérer l'intéraction et la chute du tétromino
+
+    private Game _gameScript;
 
     // Start is called before the first frame update
     void Start()
     {
+        _gameScript = GameObject.Find("Board").GetComponent<Game>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!tetrominoFalling) {
+        if(!_tetrominoFalling) {
             return;
         }
 
@@ -53,31 +56,20 @@ public class Tetromino : MonoBehaviour
         }
 
         // Chute du tétromino
-        if (fallTimer <= 0) {
+        if (_fallTimer <= 0) {
             if(canMove(new Vector3(0, -1, 0))) {
                 transform.position += new Vector3(0, -1, 0);
-                fallTimer = Game.fallTimeInterval;
+                _fallTimer = Game.fallTimeInterval;
             } else { // Le tétromino a fini sa chute
+                _tetrominoFalling = false;
+                _gameScript.endOfTetrominoFall(Shape);
 
-                // Sauvegarde des parties du tétromino dans la grille de jeu
-                int childQuantity = Shape.transform.childCount;
-                int i = 0;
-                while(i < childQuantity) {
-                    Game.board[(int)Shape.transform.GetChild(i).transform.position.x, (int)Shape.transform.GetChild(i).transform.position.y] = Shape.transform.GetChild(i).transform;
-                    i++;
-                }
-
-                tetrominoFalling = false;
-
-                // Apparition du prochain tétromino
-                GameObject.Find("Board").GetComponent<Game>().SpawnTetromino();
-
-                return;
+                return; 
             }
         }
 
         // Décompte du timer pour gérer la chute avec application du coefficient d'accélération si le joueur appuie sur la touche du bas durant la frame
-        fallTimer -= (Time.deltaTime * Mathf.Max(1,(Convert.ToInt32(Input.GetKey(KeyCode.DownArrow)) * coeffSpeedFall))); 
+        _fallTimer -= (Time.deltaTime * Mathf.Max(1,(Convert.ToInt32(Input.GetKey(KeyCode.DownArrow)) * _coeffSpeedFall))); 
     }
 
     // Teste la validité des positions des parties du tétromino 

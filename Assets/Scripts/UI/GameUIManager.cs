@@ -34,8 +34,9 @@ public class GameUIManager : MonoBehaviour
         linesTextValue.text = lines.ToString();
     }
 
-    public void showGameOverMenu()
+    public void showGameOverMenu(int score)
     {
-        Instantiate(gameOverMenuPrefab, transform);
+        GameObject gameOverMenu = Instantiate(gameOverMenuPrefab, transform);
+        gameOverMenu.GetComponent<GameOverMenu>().setScore(score);
     }
 }

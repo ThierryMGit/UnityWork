@@ -5,10 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class GameOverMenu : MonoBehaviour
 {
+    public TMPro.TMP_Text scoreTextValue;
+
     void Start()
     {
         Game.gamePaused = true;
         Time.timeScale = 0;
+    }
+
+    public void setScore(int score)
+    {
+        scoreTextValue.text = score.ToString();
     }
      
     public void RestartGame()

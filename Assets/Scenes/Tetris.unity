@@ -1689,7 +1689,6 @@ MonoBehaviour:
   - {fileID: 7384483111293371027, guid: 48da5777ecd44c64d8e4fe071ad9ee8b, type: 3}
   - {fileID: 828825899027134145, guid: 758cec96040a62445b632bbb26e1fa14, type: 3}
   - {fileID: 8485957634337597526, guid: 0cc1ac5a415923a46b3ffe29dfa28ded, type: 3}
-  tetrominosParentInSceneHierarchy: {fileID: 0}
   tetrominosSpawnPosition: {fileID: 607969754}
 --- !u!1 &1364566066
 GameObject:
@@ -2160,7 +2159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

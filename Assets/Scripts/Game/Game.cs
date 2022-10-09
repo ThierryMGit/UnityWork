@@ -16,16 +16,13 @@ public class Game : MonoBehaviour
     private float _boardLimitBottom;
     private float _boardLimitTop;
 
-    
-
     private int _score = 0;
 
     private int _level = 0;
 
     private int _totalLinesDestroyed = 0;
 
-    
-
+    private GameUIManager _gameUIManagerScript;
 
     //** Règles
 
@@ -55,6 +52,8 @@ public class Game : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _gameUIManagerScript = GameObject.Find("Canvas").GetComponent<GameUIManager>();
+
         // Apparition d'un tétromino dès le lancement du jeu
         SpawnTetromino();
     }
@@ -101,8 +100,11 @@ public class Game : MonoBehaviour
         // Mise à jour du score
         UpdateScore(lineDestroyedQuantity);
 
-        // Mise à jour du niveau
+        // Mise à jour du total de lignes détruites
         _totalLinesDestroyed += lineDestroyedQuantity;
+        _gameUIManagerScript.UpdateLinesValue(_totalLinesDestroyed);
+
+        // Mise à jour du niveau
         UpdateLevel();
 
         // Apparition du prochain tétromino
@@ -192,6 +194,8 @@ public class Game : MonoBehaviour
             default:
             break;
         }
+
+        _gameUIManagerScript.UpdateScoreValue(_score);
     }
 
     private void UpdateLevel() 
@@ -199,6 +203,7 @@ public class Game : MonoBehaviour
         if (_totalLinesDestroyed/((_level + 1) * _linesToDestroyPerLevel) == 1) {
             _level++;
             fallTimeInterval *= _coeffAccelerationFallTimePerLevel;
+            _gameUIManagerScript.UpdateLevelValue(_level);
         }
     }
 }

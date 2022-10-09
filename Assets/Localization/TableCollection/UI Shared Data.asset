@@ -34,6 +34,14 @@ MonoBehaviour:
 '
     m_Metadata:
       m_Items: []
+  - m_Id: 35336810500096
+    m_Key: game_level
+    m_Metadata:
+      m_Items: []
+  - m_Id: 35458374012928
+    m_Key: game_lines
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

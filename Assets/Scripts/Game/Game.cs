@@ -24,6 +24,8 @@ public class Game : MonoBehaviour
 
     private GameUIManager _gameUIManagerScript;
 
+    public static bool gamePaused = false;
+
     //** Règles
 
     // Attribution des points en formant une ou plusieurs lignes d'un coup

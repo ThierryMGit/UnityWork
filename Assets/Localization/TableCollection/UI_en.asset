@@ -42,6 +42,18 @@ MonoBehaviour:
     m_Localized: 'Lines:'
     m_Metadata:
       m_Items: []
+  - m_Id: 40862407561216
+    m_Localized: Resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40932989308928
+    m_Localized: Retry
+    m_Metadata:
+      m_Items: []
+  - m_Id: 41742011830272
+    m_Localized: Main menu
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

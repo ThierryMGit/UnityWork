@@ -42,6 +42,18 @@ MonoBehaviour:
     m_Key: game_lines
     m_Metadata:
       m_Items: []
+  - m_Id: 40862407561216
+    m_Key: pause_menu_resume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40932989308928
+    m_Key: pause_menu_restart
+    m_Metadata:
+      m_Items: []
+  - m_Id: 41742011830272
+    m_Key: pause_menu_back_to_main_menu
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

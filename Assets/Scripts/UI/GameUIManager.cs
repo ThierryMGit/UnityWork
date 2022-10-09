@@ -8,6 +8,16 @@ public class GameUIManager : MonoBehaviour
     public TMPro.TMP_Text levelTextValue;
     public TMPro.TMP_Text linesTextValue;
 
+    public GameObject pauseMenu;
+
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape) && !pauseMenu.activeSelf) {
+            pauseMenu.SetActive(true);
+            pauseMenu.GetComponent<PauseMenu>().PauseGame();
+        }
+    }
+
     public void UpdateScoreValue(int score)
     {
         scoreTextValue.text = score.ToString();

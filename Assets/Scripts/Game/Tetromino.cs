@@ -30,7 +30,7 @@ public class Tetromino : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!_tetrominoFalling) {
+        if(!_tetrominoFalling || Game.gamePaused) {
             return;
         }
 

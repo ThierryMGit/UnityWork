@@ -5,13 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
     public void StartGame()
     {
-          SceneManager.LoadScene("Main");
+          SceneManager.LoadScene("Tetris");
     }
 
-    // Update is called once per frame
     public void QuitGame()
     {
         Application.Quit();

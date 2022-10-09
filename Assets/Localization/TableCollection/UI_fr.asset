@@ -38,6 +38,18 @@ MonoBehaviour:
     m_Localized: 'Lignes :'
     m_Metadata:
       m_Items: []
+  - m_Id: 40862407561216
+    m_Localized: Reprendre
+    m_Metadata:
+      m_Items: []
+  - m_Id: 40932989308928
+    m_Localized: Recommencer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 41742011830272
+    m_Localized: Menu principal
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

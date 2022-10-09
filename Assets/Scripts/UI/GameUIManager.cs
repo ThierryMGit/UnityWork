@@ -9,6 +9,7 @@ public class GameUIManager : MonoBehaviour
     public TMPro.TMP_Text linesTextValue;
 
     public GameObject pauseMenu;
+    public GameObject gameOverMenuPrefab;
 
     void Update()
     {
@@ -31,5 +32,10 @@ public class GameUIManager : MonoBehaviour
     public void UpdateLinesValue(int lines)
     {
         linesTextValue.text = lines.ToString();
+    }
+
+    public void showGameOverMenu()
+    {
+        Instantiate(gameOverMenuPrefab, transform);
     }
 }

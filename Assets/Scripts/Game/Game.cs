@@ -85,6 +85,7 @@ public class Game : MonoBehaviour
         // Test si le jeu est terminé
         if(IsGameOver(tetrominoShape)) {
             Debug.Log("Fin du jeu");
+            _gameUIManagerScript.showGameOverMenu();
             return;
         }
 

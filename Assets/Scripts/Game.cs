@@ -16,15 +16,29 @@ public class Game : MonoBehaviour
     private float _boardLimitBottom;
     private float _boardLimitTop;
 
-    public static float fallTimeInterval = 0.7f; // Intervalle de temps avant la descente d'une case d'un tetromino
+    
 
     private int _score = 0;
 
-    // Règles pour l'attribution des points en formant une ou plusieurs lignes d'un coup
+    private int _level = 0;
+
+    private int _totalLinesDestroyed = 0;
+
+    
+
+
+    //** Règles
+
+    // Attribution des points en formant une ou plusieurs lignes d'un coup
     private const int ScoreSimpleLine = 40;
     private const int ScoreDoubleLine = 100;
     private const int ScoreTripleLine = 300;
     private const int ScoreTetris = 1200;
+
+    private int _linesToDestroyPerLevel = 10;// Nombre de lignes à détruire pour passer un niveau
+    
+    public static float fallTimeInterval = 0.7f; // Intervalle de temps avant la descente d'une case d'un tetromino
+    private float _coeffAccelerationFallTimePerLevel = 0.9f; // A chaque niveau les tétrominos descendent plus vite en appliquant ce coefficient
 
     void Awake()
     {
@@ -82,7 +96,14 @@ public class Game : MonoBehaviour
         }
 
         // Gestion des lignes réalisées
-        EvaluateBoardForLinesDestruction();
+        int lineDestroyedQuantity = checkBoardForLinesDestructionAndReturnLinesDestroyedQuantity();
+
+        // Mise à jour du score
+        UpdateScore(lineDestroyedQuantity);
+
+        // Mise à jour du niveau
+        _totalLinesDestroyed += lineDestroyedQuantity;
+        UpdateLevel();
 
         // Apparition du prochain tétromino
         SpawnTetromino();
@@ -101,7 +122,7 @@ public class Game : MonoBehaviour
         return (i != childQuantity);
     }
 
-    private void EvaluateBoardForLinesDestruction()
+    private int checkBoardForLinesDestructionAndReturnLinesDestroyedQuantity()
     {
         // Recherche des lignes réalisées / Destruction / Mise à jour du board
         int lineDestroyedQuantity = 0;
@@ -121,8 +142,7 @@ public class Game : MonoBehaviour
             }
         }
 
-        // Mise à jour du score
-        UpdateScore(lineDestroyedQuantity);
+        return lineDestroyedQuantity;
     }
 
     private void DestroyLine(int indexLine)
@@ -171,6 +191,14 @@ public class Game : MonoBehaviour
                 break;
             default:
             break;
+        }
+    }
+
+    private void UpdateLevel() 
+    {
+        if (_totalLinesDestroyed/((_level + 1) * _linesToDestroyPerLevel) == 1) {
+            _level++;
+            fallTimeInterval *= _coeffAccelerationFallTimePerLevel;
         }
     }
 }

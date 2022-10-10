@@ -62,6 +62,24 @@ MonoBehaviour:
     m_Key: game_over_menu_title
     m_Metadata:
       m_Items: []
+  - m_Id: 100059010666496
+    m_Key: save_score_menu_save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100413517434880
+    m_Key: save_score_menu_submit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116929004670976
+    m_Key: 'high_scores_panel_title
+
+'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 130144031838208
+    m_Key: back
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

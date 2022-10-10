@@ -6,11 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Tetris.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
-  - enabled: 1
     path: Assets/Scenes/MainMenu.unity
     guid: 0f9c4dd20035af1449b75010704777d1
+  - enabled: 1
+    path: Assets/Scenes/Tetris.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: f1826757a723f074bbdf002a52a14e7b, type: 2}
     com.unity.localization.settings: {fileID: 11400000, guid: 3c50936954f08e44fb451f0327179be2, type: 2}

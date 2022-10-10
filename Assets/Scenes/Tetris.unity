@@ -981,7 +981,7 @@ MonoBehaviour:
   levelTextValue: {fileID: 2099834758}
   linesTextValue: {fileID: 2079844744}
   pauseMenu: {fileID: 1695927010}
-  gameOverMenuPrefab: {fileID: 8895527838210316758, guid: d593e0fe641e66442b5e4aa9db032aa1, type: 3}
+  gameOverMenuPrefab: {fileID: 8895527838210316758, guid: 97552f751e80eb6408efaf1dae41b815, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

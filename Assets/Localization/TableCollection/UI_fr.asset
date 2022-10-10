@@ -58,6 +58,22 @@ MonoBehaviour:
     m_Localized: Fin de partie
     m_Metadata:
       m_Items: []
+  - m_Id: 100059010666496
+    m_Localized: Enregistrer
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100413517434880
+    m_Localized: Valider
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116929004670976
+    m_Localized: Classement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 130144031838208
+    m_Localized: Retour
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

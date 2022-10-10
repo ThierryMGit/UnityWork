@@ -62,6 +62,22 @@ MonoBehaviour:
     m_Localized: Game over
     m_Metadata:
       m_Items: []
+  - m_Id: 100059010666496
+    m_Localized: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 100413517434880
+    m_Localized: Submit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 116929004670976
+    m_Localized: Leaderboard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 130144031838208
+    m_Localized: "Back\t"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

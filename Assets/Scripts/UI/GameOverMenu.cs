@@ -17,6 +17,13 @@ public class GameOverMenu : MonoBehaviour
 
     private int _score;
 
+    private ScoreManager _scoreManagerScript;
+
+    void Awake()
+    {
+         _scoreManagerScript = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+    }
+
     void Start()
     {
         Game.gamePaused = true;
@@ -28,7 +35,7 @@ public class GameOverMenu : MonoBehaviour
         _score = score;
         scoreTextValue.text = score.ToString();
 
-        if(score > 0) {
+        if(score > 0 && _scoreManagerScript.isScoreNeedToBeSaved(score)) {
             saveScoreUI.SetActive(true);
         } else {
             noScoreUI.SetActive(true);
@@ -37,7 +44,7 @@ public class GameOverMenu : MonoBehaviour
 
     public void saveScore()
     {
-       GameObject.Find("ScoreManager").GetComponent<ScoreManager>().SaveScore(_pseudo, _score);
+       _scoreManagerScript.SaveScore(_pseudo, _score);
        Instantiate(leaderboardUIPrefab, transform.parent);
 
        saveScoreUI.SetActive(false);

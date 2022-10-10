@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class LeaderBoardUI : MonoBehaviour
 {
-    const int MaxQuantityScores = 7;
-
     public Transform scoresTransform;
 
     public GameObject scorePrefab;
@@ -18,7 +16,7 @@ public class LeaderBoardUI : MonoBehaviour
 
     void buildLeaderBoard(Leaderboard leaderboardDatas)
     {
-        for(int i = 0; i < Mathf.Min(leaderboardDatas.scoreDatas.Count, MaxQuantityScores); i++) {
+        for(int i = 0; i < leaderboardDatas.scoreDatas.Count; i++) {
             GameObject scoreUI = Instantiate(scorePrefab, scoresTransform);
             scoreUI.GetComponent<ScoreUI>().setDatas(leaderboardDatas.scoreDatas[i]);
         }

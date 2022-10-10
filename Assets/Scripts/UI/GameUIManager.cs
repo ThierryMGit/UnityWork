@@ -11,9 +11,11 @@ public class GameUIManager : MonoBehaviour
     public GameObject pauseMenu;
     public GameObject gameOverMenuPrefab;
 
+    private GameObject _gameOverMenu;
+
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && !pauseMenu.activeSelf) {
+        if(Input.GetKeyDown(KeyCode.Escape) && !pauseMenu.activeSelf && _gameOverMenu == null) {
             pauseMenu.SetActive(true);
             pauseMenu.GetComponent<PauseMenu>().PauseGame();
         }
@@ -36,7 +38,7 @@ public class GameUIManager : MonoBehaviour
 
     public void showGameOverMenu(int score)
     {
-        GameObject gameOverMenu = Instantiate(gameOverMenuPrefab, transform);
-        gameOverMenu.GetComponent<GameOverMenu>().setScore(score);
+        _gameOverMenu = Instantiate(gameOverMenuPrefab, transform);
+        _gameOverMenu.GetComponent<GameOverMenu>().setScore(score);
     }
 }

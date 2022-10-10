@@ -5,6 +5,8 @@ using UnityEngine;
 // Gère la sauvegarde et chargement des scores
 public class ScoreManager : MonoBehaviour
 {
+    public static int MaxQuantityScores = 8;
+
     public Leaderboard leaderboard = new Leaderboard();
 
     void Awake()
@@ -14,6 +16,7 @@ public class ScoreManager : MonoBehaviour
 
     public void SaveScore(string pseudo, int score)
     {
+        //
         ScoreData scoreData = new ScoreData(pseudo, score);
 
         int indexScore = 0;
@@ -23,6 +26,16 @@ public class ScoreManager : MonoBehaviour
 
         leaderboard.scoreDatas.Insert(indexScore, scoreData);
         SaveLeaderboard();
+    }
+
+    public bool isScoreNeedToBeSaved(int score)
+    {
+        int indexScore = 0;
+        while(indexScore < Mathf.Min(leaderboard.scoreDatas.Count, MaxQuantityScores) && score <= leaderboard.scoreDatas[indexScore].score) {
+            indexScore++;
+        }
+
+        return (indexScore < MaxQuantityScores);
     }
 
     public void SaveLeaderboard()
